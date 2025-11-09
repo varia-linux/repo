@@ -25,11 +25,7 @@
         
         <p>Ensure the following settings are present in your <code>/etc/pacman.conf</code>:</p>
         
-        <pre>[core]
-SigLevel = PackageRequired
-Server = https://varia-linux.github.io/repo/$arch/
-
-[extra]
+        <pre>[varia]
 SigLevel = PackageRequired
 Server = https://varia-linux.github.io/repo/$arch/</pre>
 
@@ -59,13 +55,10 @@ sudo pacman-key --lsign-key C7D43A7BF40EF2AC1486A457FED45582099CCB69</pre>
             Add the repository sections shown below to your <code>/etc/pacman.conf</code> file:
         </p>
         
-        <pre>[core]
+        <pre>[varia]
 SigLevel = PackageRequired
 Server = https://varia-linux.github.io/repo/$arch/
-
-[extra]
-SigLevel = PackageRequired
-Server = https://varia-linux.github.io/repo/$arch/</pre>
+        </pre>
         
         <hr> <h2>Sync and Install Packages</h2>
         <p>
