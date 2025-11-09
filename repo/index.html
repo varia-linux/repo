@@ -27,22 +27,47 @@
         
         <pre>[core]
 SigLevel = PackageRequired
-Server = https://varia-linux.github.io/repo/$repo/$arch/
+Server = https://varia-linux.github.io/repo/$arch/
 
 [extra]
 SigLevel = PackageRequired
-Server = https://varia-linux.github.io/repo/$repo/$arch/</pre>
+Server = https://varia-linux.github.io/repo/$arch/</pre>
 
         <p class="note">
             <strong>Security Note:</strong> As official repositories, **GPG signing** is enforced. The organization's public key should already be imported and trusted on your system.
         </p>
 
-        <h2>Arch Linux Users: Manual Addition</h2>
+        <hr> <h2>Arch Linux Users: Manual Addition & GPG Key Setup</h2>
         <p class="important">
-            Arch Linux users can manually add the official Varia repository to access the custom packages. Add the repository sections shown above to your <code>/etc/pacman.conf</code> file.
+            Arch Linux users must complete two steps: import the GPG signing key and then add the repository sections.
         </p>
 
-        <h2>Sync and Install Packages</h2>
+        <h3>Step 1: Import the Varia Linux GPG Public Key</h3>
+        <p>
+            To securely verify the packages, import the organization's signing key (<code title="C7D43A7BF40EF2AC1486A457FED45582099CCB69">C7D43A7BF40EF2AC1486A457FED45582099CCB69</code>) from a keyserver and locally sign it:
+        </p>
+
+        <pre>
+# 1. Import the key from keyserver.ubuntu.com
+sudo pacman-key --keyserver keyserver.ubuntu.com --recv-keys C7D43A7BF40EF2AC1486A457FED45582099CCB69
+
+# 2. Locally sign the key to trust it
+sudo pacman-key --lsign-key C7D43A7BF40EF2AC1486A457FED45582099CCB69</pre>
+
+        <h3>Step 2: Add Repository Sections</h3>
+        <p>
+            Add the repository sections shown below to your <code>/etc/pacman.conf</code> file:
+        </p>
+        
+        <pre>[core]
+SigLevel = PackageRequired
+Server = https://varia-linux.github.io/repo/$arch/
+
+[extra]
+SigLevel = PackageRequired
+Server = https://varia-linux.github.io/repo/$arch/</pre>
+        
+        <hr> <h2>Sync and Install Packages</h2>
         <p>
             Synchronize your package database and install packages using the standard Pacman commands:
         </p>
