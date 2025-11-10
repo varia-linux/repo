@@ -33,12 +33,11 @@ jobs:
 #        uses: actions/deploy-pages@v4
 
       - name: Deploy
-        uses: wlixcc/SFTP-Deploy-Action@a5ccb9c6211a94cc59404f0fdb2a9936a6dfee64
+        uses: SamKirkland/FTP-Deploy-Action@a51268f67f6605236975928ae28b0f7e9971d50a
         with:
-          server: ${{ secrets.FTP_SERVER }}
+          server: ${{ secrets.FTP_HOST }}
           port: ${{ secrets.FTP_PORT }}
-          username: ${{ secrets.SSH_PRIVATE_KEY }}
+          username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local_path: './repo/*'
-          remote_path: '/'
-          sftpArgs: '-o ConnectTimeout=5'
+          server-dir: /
+          local-dir: ./repo
