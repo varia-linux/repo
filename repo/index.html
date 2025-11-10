@@ -1,76 +1,86 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Varia Linux Official Package Repository</title>
-        <style>
-            body { font-family: sans-serif; max-width: 800px; margin: auto; padding: 20px; line-height: 1.6; }
-            code { background-color: #eee; padding: 2px 4px; border-radius: 3px; }
-            pre { background-color: #f4f4f4; padding: 15px; border-radius: 5px; overflow-x: auto; }
-            h1 { border-bottom: 2px solid #ccc; padding-bottom: 10px; }
-            .important { color: darkred; font-weight: bold; }
-        </style>
-    </head>
-    <body>
-        <h1>Varia Linux Official Package Repository</h1>
-        <p>
-            This site hosts the Official package repositories for Varia Linux, managed by the Varia Linux Organization.
-        </p>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Varia Linux Official Package Repository</title>
+        <style>
+            body { font-family: sans-serif; max-width: 800px; margin: auto; padding: 20px; line-height: 1.6; }
+            code { background-color: #eee; padding: 2px 4px; border-radius: 3px; }
+            pre { background-color: #f4f4f4; padding: 15px; border-radius: 5px; overflow-x: auto; }
+            h1 { border-bottom: 2px solid #ccc; padding-bottom: 10px; }
+            .important { color: darkred; font-weight: bold; }
+        </style>
+    </head>
+    <body>
+        <h1>Varia Linux Official Package Repository</h1>
+        <p>
+            This site hosts the Official package repositories for Varia Linux, managed by the Varia Linux Organization.
+        </p>
 
-        <h2>Varia Linux Users: Configuration Check</h2>
-        <p>
-            The official repositories are already pre-configured in your Varia Linux system's <code>/etc/pacman.conf</code>. This section is for verification or if the configuration was manually removed.
-        </p>
-        
-        <p>Ensure the following settings are present in your <code>/etc/pacman.conf</code>:</p>
-        
-        <pre>[varia]
+        <h2>Varia Linux Users: Configuration Check</h2>
+        <p>
+            The official repositories are already pre-configured in your Varia Linux system's <code>/etc/pacman.conf</code>. This section is for verification or if the configuration was manually removed.
+        </p>
+        
+        <p>Ensure the following settings are present in your <code>/etc/pacman.conf</code>:</p>
+        
+        <pre>[varia]
 SigLevel = PackageRequired
 Server = https://varia-repo.amase.cc/$arch/</pre>
 
-        <p class="note">
-            <strong>Security Note:</strong> As official repositories, **GPG signing** is enforced. The organization's public key should already be imported and trusted on your system.
-        </p>
+        <p class="note">
+            <strong>Security Note:</strong> As official repositories, **GPG signing** is enforced. The organization's public key should already be imported and trusted on your system.
+        </p>
 
-        <hr> <h2>Arch Linux Users: Manual Addition & GPG Key Setup</h2>
-        <p class="important">
-            Arch Linux users must complete two steps: import the GPG signing key and then add the repository sections.
-        </p>
+        <hr> <h2>Arch Linux Users: Manual Addition & GPG Key Setup</h2>
+        <p class="important">
+            Arch Linux users must complete two steps: import the GPG signing key and then add the repository sections.
+        </p>
 
-        <h3>Step 1: Import the Varia Linux GPG Public Key</h3>
+        <h3>Step 1: Import the Varia Linux GPG Public Key</h3>
+        <p>
+            To securely verify the packages, import the necessary signing key(s). The **Organization's Key** (Recommended) is <code title="FD8F04B290F3E2FD18CDAF9FD53A3E0AB76602CF">FD8F04B290F3E2FD18CDAF9FD53A3E0AB76602CF</code>.
+        </p>
+
+        <h4>1-A. Import the Organization Key from Repository (Recommended)</h4>
         <p>
-            To securely verify the packages, import the organization's signing key (<code title="C7D43A7BF40EF2AC1486A457FED45582099CCB69">C7D43A7BF40EF2AC1486A457FED45582099CCB69</code>) from a keyserver and locally sign it:
+            The recommended method is to install the official keyring package:
         </p>
+        <pre>
+sudo pacman -U https://varia-repo.amase.cc/x86_64/varia-keyring-20251110-2-any.pkg.tar.zst</pre>
 
+        <h4>1-B. Troubleshooting: Importing the Old Developer Key</h4>
+        <p>
+            If package installation fails with a key error, it might be due to a package still being signed by the old **Developer Key** (<code title="C7D43A7BF40EF2AC1486A457FED45582099CCB69">C7D43A7BF40EF2AC1486A457FED45582099CCB69</code>, non-org signature, provided from AmaseCocoa). To resolve this, manually import the key from a keyserver and locally sign it:
+        </p>
         <pre>
-# 1. Import the key from keyserver.ubuntu.com
-sudo pacman-key --keyserver keyserver.ubuntu.com --recv-keys C7D43A7BF40EF2AC1486A457FED45582099CCB69
-
-# 2. Locally sign the key to trust it
+# 1. Import the key from a keyserver
+sudo pacman-key --recv-key C7D43A7BF40EF2AC1486A457FED45582099CCB69
+# 2. Locally sign the key to establish trust
 sudo pacman-key --lsign-key C7D43A7BF40EF2AC1486A457FED45582099CCB69</pre>
 
-        <h3>Step 2: Add Repository Sections</h3>
-        <p>
-            Add the repository sections shown below to your <code>/etc/pacman.conf</code> file:
-        </p>
-        
-        <pre>[varia]
+        <h3>Step 2: Add Repository Sections</h3>
+        <p>
+            Add the repository sections shown below to your <code>/etc/pacman.conf</code> file:
+        </p>
+        
+        <pre>[varia]
 SigLevel = PackageRequired
 Server = https://varia-repo.amase.cc/$arch/
-        </pre>
-        
-        <hr> <h2>Sync and Install Packages</h2>
-        <p>
-            Synchronize your package database and install packages using the standard Pacman commands:
-        </p>
+        </pre>
+        
+        <hr> <h2>Sync and Install Packages</h2>
+        <p>
+            Synchronize your package database and install packages using the standard Pacman commands:
+        </p>
 
-        <pre>
+        <pre>
 sudo pacman -Sy
 sudo pacman -S &lt;package-name&gt;</pre>
 
-        <p>
-            For more details, check the source code at <a href="https://github.com/varia-linux/repo">github.com/varia-linux/repo</a>.
-        </p>
-    </body>
+        <p>
+            For more details, check the source code at <a href="https://github.com/varia-linux/repo">github.com/varia-linux/repo</a>.
+        </p>
+    </body>
 </html>
