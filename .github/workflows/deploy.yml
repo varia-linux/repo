@@ -42,4 +42,3 @@ jobs:
           local_path: './repo/*'
           remote_path: '/'
           sftpArgs: '-o ConnectTimeout=5'
-          sftp_only: true
