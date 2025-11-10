@@ -12,7 +12,7 @@ tasks:
     desc: "Update the local package repository with new packages and sign it."
     cmds:
       - 'echo "Starting repository update for {{.REPO_NAME}} (Arch: {{.ARCH}}) in {{.REPO_DIR}}..."'
-      - repo-add --verify --sign -n {{.REPO_DIR}}/{{.REPO_NAME}}.db.tar.gz {{.REPO_DIR}}/{{.PACKAGE_GLOB}}
+      - repo-add --verify --sign -n {{.REPO_DIR}}/{{.REPO_NAME}}.db.tar.gz {{.REPO_DIR}}/{{.PACKAGE_GLOB}} --key=FD8F04B290F3E2FD18CDAF9FD53A3E0AB76602CF
       - echo "Repository update complete."
       - ls -l {{.REPO_DIR}}/{{.REPO_NAME}}.db.tar.gz*
       - git add .
