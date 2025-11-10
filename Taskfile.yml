@@ -17,8 +17,12 @@ tasks:
       - repo-add --verify --sign -n {{.REPO_DIR}}/{{.REPO_NAME}}.db.tar.gz {{.REPO_DIR}}/{{.PACKAGE_GLOB}}
       - echo "Repository update complete."
       - ls -l {{.REPO_DIR}}/{{.REPO_NAME}}.db.tar.gz*
+      - git add .
+      - git commit -m "update pkgs"
   clean-signatures:
     desc: "Remove existing repository signature files (Use with caution)."
     cmds:
       - rm -f {{.REPO_DIR}}/{{.REPO_NAME}}.db.tar.gz.sig
       - echo "Existing signatures removed."
+      - git add .
+      - git commit -m "remove signatures"
