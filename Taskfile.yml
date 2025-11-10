@@ -1,0 +1,24 @@
+# Taskfile.yaml
+
+version: '3'
+
+vars:
+  REPO_NAME: varia
+  REPO_BASE_DIR: 'repo'
+  ARCH: 'x86_64'
+  REPO_DIR: "{{.REPO_BASE_DIR}}/{{.ARCH}}"
+  PACKAGE_GLOB: "*.pkg.tar.zst"
+
+tasks:
+  update-repo:
+    desc: "Update the local package repository with new packages and sign it."
+    cmds:
+      - 'echo "Starting repository update for {{.REPO_NAME}} (Arch: {{.ARCH}}) in {{.REPO_DIR}}..."'
+      - repo-add --verify --sign -n {{.REPO_DIR}}/{{.REPO_NAME}}.db.tar.gz {{.REPO_DIR}}/{{.PACKAGE_GLOB}}
+      - echo "Repository update complete."
+      - ls -l {{.REPO_DIR}}/{{.REPO_NAME}}.db.tar.gz*
+  clean-signatures:
+    desc: "Remove existing repository signature files (Use with caution)."
+    cmds:
+      - rm -f {{.REPO_DIR}}/{{.REPO_NAME}}.db.tar.gz.sig
+      - echo "Existing signatures removed."
