@@ -1,5 +1,3 @@
-# Taskfile.yaml
-
 version: '3'
 
 vars:
