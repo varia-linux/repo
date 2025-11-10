@@ -40,15 +40,12 @@ Server = https://varia-repo.amase.cc/$arch/</pre>
 
         <h3>Step 1: Import the Varia Linux GPG Public Key</h3>
         <p>
-            To securely verify the packages, import the organization's signing key (<code title="C7D43A7BF40EF2AC1486A457FED45582099CCB69">C7D43A7BF40EF2AC1486A457FED45582099CCB69</code>) from a keyserver and locally sign it:
+            To securely verify the packages, import the organization's signing key (<code title="FD8F04B290F3E2FD18CDAF9FD53A3E0AB76602CF">FD8F04B290F3E2FD18CDAF9FD53A3E0AB76602CF</code>, <code title="C7D43A7BF40EF2AC1486A457FED45582099CCB69">C7D43A7BF40EF2AC1486A457FED45582099CCB69</code> (Old key, non-org signature, provided from AmaseCocoa)) from a keyserver and locally sign it:
         </p>
 
         <pre>
-# 1. Import the key from keyserver.ubuntu.com
-sudo pacman-key --keyserver keyserver.ubuntu.com --recv-keys C7D43A7BF40EF2AC1486A457FED45582099CCB69
-
-# 2. Locally sign the key to trust it
-sudo pacman-key --lsign-key C7D43A7BF40EF2AC1486A457FED45582099CCB69</pre>
+# 1. Import the key from repository
+sudo pacman -U https://varia-repo.amase.cc/x86_64/varia-keyring-20251110-2-any.pkg.tar.zst</pre>
 
         <h3>Step 2: Add Repository Sections</h3>
         <p>
